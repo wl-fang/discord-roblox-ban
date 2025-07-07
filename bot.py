@@ -6,10 +6,10 @@ from datetime import datetime
 from typing import Optional
 import json
 
-TOKEN = '12345abc'  # Replace with your actual bot token
-ROBLOX_API_KEY = '12345abc' # Replace with your Roblox Cloud API Key - Enable universe read/write access
-WEB_API_URL = 'https://games.roblox.com/v1/games?universeIds=id' # Replace id with your game's universeid
-PATCH_API_URL = 'https://apis.roblox.com/cloud/v2/universes/id/user-restrictions/' # Replace id with your game's universeid
+TOKEN = '12345abc'  # replace w/ actual bot token
+ROBLOX_API_KEY = '12345abc' # replace with roblox cloud api key
+WEB_API_URL = 'https://games.roblox.com/v1/games?universeIds=id' # game universeid
+PATCH_API_URL = 'https://apis.roblox.com/cloud/v2/universes/id/user-restrictions/' # game universeid
 
 intents = discord.Intents.default()
 bot = commands.Bot(command_prefix='pls ', intents=intents)
@@ -77,7 +77,7 @@ async def ingameban(interaction: discord.Interaction, username: str, reason: str
     theUserId = data['data'][0]['id']
 
     headers = {
-        'x-api-key': ROBLOX_API_KEY,  # Replace with your API key if needed
+        'x-api-key': ROBLOX_API_KEY, 
     }
 
     payload = {}
@@ -136,7 +136,6 @@ async def ingameunban(interaction: discord.Interaction, username: str, reason: s
         'Content-Type': 'application/json',
     }
 
-    # Define the payload
     payload = {
         'usernames': [username],
         'excludeBannedUsers': False
@@ -148,7 +147,7 @@ async def ingameunban(interaction: discord.Interaction, username: str, reason: s
     theUserId = data['data'][0]['id']
 
     headers = {
-        'x-api-key': ROBLOX_API_KEY,  # Replace with your API key if needed
+        'x-api-key': ROBLOX_API_KEY, 
     }
     payload = {
         'gameJoinRestriction':
@@ -183,7 +182,7 @@ async def on_application_command_error(interaction: discord.Interaction, error: 
         await interaction.response.send_message(f'An error occurred: {str(error)}')
 
 
-@tasks.loop(minutes=6)  # Set the loop to run every x time
+@tasks.loop(minutes=6)
 async def change_channel_name():
     channel = bot.get_channel(1264425714330107946)
     channel2 = bot.get_channel(1264468786304651264)
